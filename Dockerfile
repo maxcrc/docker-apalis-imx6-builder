@@ -30,12 +30,10 @@ RUN dpkg --add-architecture i386 && \
 			uuid-dev && \
 			rm -rf /var/lib/apt/lists/*
 
-
-
 RUN cd /usr/lib; ln -s libcrypto++.so.9.0.0 libcryptopp.so.6
 
+COPY entrypoint.sh /
 RUN useradd -m -d /home/builder -s /bin/bash builder; chmod +x /entrypoint.sh
-ENV 
 
 RUN locale-gen en_US.UTF-8
 ENV	HOME=/home/builder \
