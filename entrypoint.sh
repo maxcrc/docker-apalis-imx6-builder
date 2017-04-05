@@ -17,8 +17,7 @@ if [[ "${CMD}" == "init" ]]
 then
 	curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > "${REPO_PATH}"/repo
 	chmod a+x "${REPO_PATH}"/repo
-	
-	repo init -u http://git.toradex.com/toradex-bsp-platform.git -b LinuxImageV2.7
+	repo init -u git@git.maxcrc.de:maxcrc/toradex-bsp-platform.git -b LinuxImageV2.7-maxcrc
 	repo sync
 fi
 
