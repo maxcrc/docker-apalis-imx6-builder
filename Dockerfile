@@ -27,24 +27,22 @@ RUN dpkg --add-architecture i386 && \
 			libsdl1.2-dev \
 			python3 \
 			locales \
-			uuid-dev && \
+			uuid-dev:i386 && \
 			rm -rf /var/lib/apt/lists/*
 
 RUN cd /usr/lib; ln -s libcrypto++.so.9.0.0 libcryptopp.so.6
 
 COPY entrypoint.sh /
-RUN useradd -m -d /home/builder -s /bin/bash builder; chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 RUN locale-gen en_US.UTF-8
-ENV	HOME=/home/builder \
-	LC_ALL=en_US.UTF-8 \
+ENV LC_ALL=en_US.UTF-8 \
 	LANG=en_US.UTF-8 \
 	LANGUAGE=en_US.UTF-8
 
 RUN update-locale
-USER builder
 
-VOLUME ["/opt/oe-core"]
+VOLUME ["/opt/oe-core", "/root/.ssh"]
 WORKDIR "/opt/oe-core"
 
 ENTRYPOINT ["/entrypoint.sh"]
