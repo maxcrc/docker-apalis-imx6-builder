@@ -1,20 +1,27 @@
 #!/bin/bash
 
 CMD=${1:-"shell"}
+
+ln -s /bin/sh /bin/bash
+echo "dash dash/sh boolean false" | debconf-set-selections
+DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+
 git config --global user.email "verder@example.com"
 git config --global user.name "Robot Verder"
 REPO_PATH=/opt/oe-core/repo-bin
 test -d "${REPO_PATH}" || mkdir "${REPO_PATH}"
 export PATH="${REPO_PATH}":$PATH
 
-if [[ "${CMD}" == "shell" ]]
-then
-   exec /bin/bash
-fi
-
 if [[ "${CMD}" == "sync" ]]
 then	
 	repo sync
+	exit 0
+fi
+
+if [[ "${CMD}" == "shell" ]]
+then
+	exec /bin/bash
+	exit 0
 fi
    
 if [[ "${CMD}" == "init" ]]
@@ -28,18 +35,21 @@ then
 	repo sync
 	sed -ie '/if 0 == os.getuid()/d' ./layers/openembedded-core/meta/classes/sanity.bbclass
 	sed -ie '/Do not use Bitbake as root./d' ./layers/openembedded-core/meta/classes/sanity.bbclass
-fi
-
-
-if [[ "${CMD}" == "build" ]]
-then
-	touch conf/sanity.conf
 	. export
-	bitbake -f console-trdx-image
+	touch conf/sanity.conf
+	exit 0
 fi
+
+. export
 
 if [[ "${CMD}" == "clean" ]]
 then
-	rm -rf /opt/oe-core/*
-	rm -rf /opt/oe-core/.*
+	bitbake -c cleanall  console-trdx-image
+	exit 0
+fi
+
+if [[ "${CMD}" == "build" ]]
+then
+	bitbake -f console-trdx-image
+	exit 0
 fi

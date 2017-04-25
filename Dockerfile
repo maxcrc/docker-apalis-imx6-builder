@@ -32,9 +32,6 @@ RUN dpkg --add-architecture i386 && \
 
 RUN cd /usr/lib; ln -s libcrypto++.so.9.0.0 libcryptopp.so.6
 
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
-
 RUN locale-gen en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8 \
 	LANG=en_US.UTF-8 \
@@ -45,4 +42,7 @@ RUN update-locale
 VOLUME ["/opt/oe-core", "/root/.ssh"]
 WORKDIR "/opt/oe-core"
 
-ENTRYPOINT ["/entrypoint.sh"]
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
