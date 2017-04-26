@@ -44,12 +44,12 @@ fi
 
 if [[ "${CMD}" == "clean" ]]
 then
-	bitbake -c cleanall  console-trdx-image
+	bitbake -c cleanall angstrom-chrome-image-wanzl
 	exit 0
 fi
 
 if [[ "${CMD}" == "build" ]]
 then
-	bitbake -f console-trdx-image
+	bitbake -f angstrom-chrome-image-wanzl
 	exit 0
 fi
