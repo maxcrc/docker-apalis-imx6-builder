@@ -33,10 +33,12 @@ then
 	chmod a+x "${REPO_PATH}"/repo
 	repo init -u git@git.maxcrc.de:maxcrc/toradex-bsp-platform.git -b LinuxImageV2.7-maxcrc
 	repo sync
-	#sed -ie '/if 0 == os.getuid()/d' ./layers/openembedded-core/meta/classes/sanity.bbclass
-	#sed -ie '/Do not use Bitbake as root./d' ./layers/openembedded-core/meta/classes/sanity.bbclass
+
+	#Disable root check
+	
+	sed -ie '/if 0 == os.getuid()/d' ./layers/openembedded-core/meta/classes/sanity.bbclass
+	sed -ie '/Do not use Bitbake as root./d' ./layers/openembedded-core/meta/classes/sanity.bbclass
 	. export
-	touch conf/sanity.conf
 	exit 0
 fi
 
