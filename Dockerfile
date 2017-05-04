@@ -27,7 +27,8 @@ RUN dpkg --add-architecture i386 && \
 			libsdl1.2-dev \
 			python3 \
 			locales \
-			uuid-dev:i386 && \
+			uuid-dev:i386 \
+			cmake && \
 			rm -rf /var/lib/apt/lists/*
 
 RUN cd /usr/lib; ln -s libcrypto++.so.9.0.0 libcryptopp.so.6

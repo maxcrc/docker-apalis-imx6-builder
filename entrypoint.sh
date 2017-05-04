@@ -46,12 +46,12 @@ fi
 
 if [[ "${CMD}" == "clean" ]]
 then
-	bitbake -c cleanall angstrom-chrome-image-wanzl
+	bitbake -c cleanall angstrom-image-wanzl
 	exit 0
 fi
 
 if [[ "${CMD}" == "build" ]]
 then
-	bitbake -f angstrom-chrome-image-wanzl
+	bitbake -k angstrom-image-wanzl
 	exit 0
 fi
