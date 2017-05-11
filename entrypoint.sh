@@ -31,13 +31,13 @@ then
 
 	curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > "${REPO_PATH}"/repo
 	chmod a+x "${REPO_PATH}"/repo
-	repo init -u git@git.maxcrc.de:maxcrc/toradex-bsp-platform.git -b LinuxImageV2.7-maxcrc
+	repo init -u git@git.maxcrc.de:maxcrc/toradex-bsp-platform.git -b ${BRANCH}
 	repo sync
 
 	#Disable root check
 	
-	sed -ie '/if 0 == os.getuid()/d' ./layers/openembedded-core/meta/classes/sanity.bbclass
-	sed -ie '/Do not use Bitbake as root./d' ./layers/openembedded-core/meta/classes/sanity.bbclass
+	sed -ie '/if 0 == os.getuid()/d' ./stuff/openembedded-core/meta/classes/sanity.bbclass
+	sed -ie '/Do not use Bitbake as root./d' ./stuff/openembedded-core/meta/classes/sanity.bbclass
 	. export
 	exit 0
 fi

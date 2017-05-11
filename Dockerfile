@@ -25,18 +25,19 @@ RUN dpkg --add-architecture i386 && \
 			wget \
 			cpio \
 			libsdl1.2-dev \
-			python3 \
+			python2.7 \
 			locales \
 			uuid-dev:i386 \
 			cmake && \
-			rm -rf /var/lib/apt/lists/*
+ 			rm -rf /var/lib/apt/lists/*
 
 RUN cd /usr/lib; ln -s libcrypto++.so.9.0.0 libcryptopp.so.6
 
 RUN locale-gen en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8 \
 	LANG=en_US.UTF-8 \
-	LANGUAGE=en_US.UTF-8
+	LANGUAGE=en_US.UTF-8 \
+	BRANCH=LinuxImageV2.6-maxcrc
 
 RUN update-locale
 
